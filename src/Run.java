@@ -32,22 +32,53 @@ public class Run {
 	public static void main(String[] args) throws IOException {
 		init();
 		//printPlayersAndChoices();
-		
-		choosePlayers(findMostWantedGroup());
-		//printPlayersAndChoices();
-		
-		choosePlayers(findMostWantedGroup());
-		//printPlayersAndChoices();
-		
-		choosePlayers(findMostWantedGroup());
-		//printPlayersAndChoices();
-		
-		choosePlayers(findMostWantedGroup());
-		//printPlayersAndChoices();
-		
-		choosePlayers(findMostWantedGroup());
-		printPlayersAndChoices();
+		printGroups(); 
+		for(int i = 0; i < 5; i++) 
+		{
+			choosePlayers(findMostWantedGroup());
+			//printPlayersAndChoices();
+		}
+		dealGroups();
 	}	
+	
+	private static void dealGroups() 
+	{
+		System.out.println("------------------");
+		for(PlayerChoices pl: listOfPlayers) 
+		{
+			int finalGroup = pl.getFinalGroup();
+			Random rand = new Random();
+			int num;
+			switch(finalGroup)
+			{
+				case 1:
+					num = rand.nextInt(group1.size());
+					System.out.println(pl.getName() + " gets " + group1.get(num));
+					group1.remove(num);
+					break;
+				case 2:
+					num = rand.nextInt(group2.size());
+					System.out.println(pl.getName() + " gets " + group2.get(num));
+					group2.remove(num);
+					break;
+				case 3:
+					num = rand.nextInt(group3.size());
+					System.out.println(pl.getName() + " gets " + group3.get(num));
+					group3.remove(num);
+					break;
+				case 4:
+					num = rand.nextInt(group4.size());
+					System.out.println(pl.getName() + " gets " + group4.get(num));
+					group4.remove(num);
+					break;
+				case 5:
+					num = rand.nextInt(group5.size());
+					System.out.println(pl.getName() + " gets " + group5.get(num));
+					group5.remove(num);
+					break;
+			}
+		}
+	}
 	
 	private static String findMostWantedGroup() 
 	{
@@ -215,7 +246,6 @@ public class Run {
 		
 		String st;
 		int grpNum = 0;
-
 		while ((st = countryGrpBR.readLine()) != null) 
 		{
 			if(st.equals("---")) 
@@ -231,17 +261,18 @@ public class Run {
 	
 	private static void printGroups() 
 	{
-		//Print out all groups (no use right now, just testing it works)
+		//Print out all groups
 		int i = 0;
 		for(ArrayList<String> groups : listOfGroups)
 		{
-			System.out.println("Group " + i);
+			System.out.println("Group : " + i);
 			for(String country : groups)
 			{
-				System.out.println("	" + country);
+				System.out.println("  " + country);
 			}
 			i++;
 		}
+		System.out.println("------------------");
 	}
 	
 	private static void readInPlayerChoices() throws IOException
